@@ -3,13 +3,14 @@ import Express from 'express';
 import User from '../models/User';
 
 const createNewUser = (req: Express.Request, res: Express.Response) => {
-    logger.info("Creating a new user");
     const user = new User({
         name: req.body.name,
         years: req.body.years
     });
     res.send(user);
+    // Save to mongodb
     user.save();
+    logger.info("Creating a new user");
 };
 
 const getAllUsers = async (req: Express.Request, res: Express.Response) => {
@@ -28,8 +29,17 @@ const getUserByUID = async (req: Express.Request, res: Express.Response) => {
     }
 };
 
+const deleteUserByUID = async (req: Express.Request, res: Express.Response) => {
+    const uid = req.params.uid;
+    logger.info(`Deleting user with uid = ${uid}`);
+    // Eliminamos el objeto con el modelo
+    await User.findByIdAndDelete(uid).exec();
+    res.status(200).send("ok");
+}
+
 export default {
     getAllUsers,
     createNewUser,
-    getUserByUID
+    getUserByUID,
+    deleteUserByUID
 }

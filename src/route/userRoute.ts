@@ -5,9 +5,11 @@ const userRoute = Express.Router();
 
 userRoute.route("/")
     .post(userController.createNewUser)
-    .get(userController.getAllUsers)
+    .get(userController.getAllUsers);
 
-userRoute.route("/:uid").get(userController.getUserByUID);
+userRoute.route("/:uid")
+    .get(userController.getUserByUID)
+    .delete(userController.deleteUserByUID);
 
 
 export default userRoute;

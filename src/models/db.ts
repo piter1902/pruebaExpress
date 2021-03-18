@@ -1,10 +1,16 @@
 import logger from '@poppinss/fancy-logs';
 import Mongoose from 'mongoose';
 
-let dbURI = 'mongodb://localhost/pruebaExpress';
+let dbURI: string = 'mongodb://localhost/pruebaExpress';
+if (process.env.PRODUCTION === "true") {
+    dbURI = process.env.MONGO_URI!.toString();
+    // logger.info(`DB URI: ${dbURI}`);
+}
 
+// Conexión a la base de datos
 Mongoose.connect(dbURI);
 
+// Event Handlers
 Mongoose.connection.on('connected', () => {
     logger.success(`Mongoose connected to ${dbURI}`);
 });

@@ -1,8 +1,12 @@
 import Express from 'express';
 import bodyParser from 'body-parser';
 import userRoute from './route/userRoute';
-import "./models/db";
 import logger from '@poppinss/fancy-logs';
+// Conexión a la bd
+import "./models/db";
+// Configuración de las variables de entorno
+import dotenv from 'dotenv';
+dotenv.config();
 
 logger.info("Modelos creados");
 

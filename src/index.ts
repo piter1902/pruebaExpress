@@ -6,7 +6,7 @@ import logger from '@poppinss/fancy-logs';
 import "./models/db";
 // Configuración de las variables de entorno
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({path: __dirname});
 
 logger.info("Modelos creados");
 

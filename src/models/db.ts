@@ -8,7 +8,7 @@ if (process.env.PRODUCTION === "true") {
 }
 
 // Conexión a la base de datos
-Mongoose.connect(dbURI);
+Mongoose.connect(dbURI, {useUnifiedTopology: true, useNewUrlParser: true});
 
 // Event Handlers
 Mongoose.connection.on('connected', () => {

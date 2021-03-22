@@ -1,1 +1,1 @@
-web: npx ts-node src/index.ts
+web: npx tsc && node compiledjs/index.js

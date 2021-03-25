@@ -7,7 +7,7 @@ const createNewUser = (req: Express.Request, res: Express.Response) => {
         name: req.body.name,
         years: req.body.years
     });
-    res.send(user);
+    res.status(201).send(user);
     // Save to mongodb
     user.save();
     logger.info("Creating a new user");
@@ -33,8 +33,16 @@ const deleteUserByUID = async (req: Express.Request, res: Express.Response) => {
     const uid = req.params.uid;
     logger.info(`Deleting user with uid = ${uid}`);
     // Eliminamos el objeto con el modelo
-    await User.findByIdAndDelete(uid).exec();
-    res.status(200).send("ok");
+    const doc = await User.findByIdAndDelete(uid).exec();
+    if(doc !== null) {
+        // Se ha eliminado algo
+        res.status(200).send("ok");
+    } else {
+        // No se ha eliminado nada
+        res.status(404).json({
+            error: `El elemento con uid = ${uid} no existe`
+        });
+    }
 }
 
 export default {

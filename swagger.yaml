@@ -1,0 +1,61 @@
+openapi: 3.0.0
+
+info:
+  title: PruebaExpress
+  description: Documentación OpenAPI para la prueba
+  version: "1.0"
+  contact:
+    name: Pedro
+    email: pedro.allue.tamargo@gmail.com
+
+servers:
+  - url: https://nameless-retreat-96668.herokuapp.com/
+    description: Heroku server
+  - url: http://localhost:8080
+    description: Localhost development server
+
+paths:
+  /user:
+    get:
+      description: Get all users
+      summary: Get all users
+      responses:
+        "200":
+          description: Successful response
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/user"
+
+    post:
+      description: Create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+
+      responses:
+        "201":
+          description: User created successfully
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+
+components:
+  schemas:
+    user:
+      type: object
+      required:
+        - "name"
+        - "years"
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        years:
+          type: integer
